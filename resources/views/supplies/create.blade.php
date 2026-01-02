@@ -10,7 +10,7 @@
     <div class="card shadow col-md-8 mx-auto">
         <div class="card-header bg-white"><h4>Add New Supplement</h4></div>
         <div class="card-body">
-            <form action="{{ route('supplies.store') }}" method="POST">
+            <form id="supplyForm" action="{{ route('supplies.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label>Product Name</label>
@@ -33,11 +33,44 @@
                     <label>Description</label>
                     <textarea name="description" class="form-control" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-success">Save Product</button>
-                <a href="{{ route('supplies.index') }}" class="btn btn-secondary">Cancel</a>
+
+                <div class="d-flex justify-content-between">
+                    <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-success">Save Product</button>
+                    
+                </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('supplyForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        
+        let titleInput = document.querySelector('input[name="title"]');
+        let titleValue = titleInput.value;
+        let submitBtn = this.querySelector('button[type="submit"]');
+        let originalBtnText = submitBtn.innerText;
+
+        submitBtn.innerText = "Validating...";
+        submitBtn.disabled = true;
+
+        fetch('https://www.purgomalum.com/service/json?text=' + encodeURIComponent(titleValue))
+            .then(response => response.json())
+            .then(data => {
+                if (data.result.includes('*')) {
+                    alert("Validation Error: Please use appropriate language in the title.");
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                } else {
+                    event.target.submit();
+                }
+            })
+            .catch(error => {
+                event.target.submit(); 
+            });
+    });
+</script>
 </body>
 </html>

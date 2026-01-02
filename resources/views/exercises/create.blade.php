@@ -17,8 +17,9 @@
                 </div>
                 <div class="card-body">
                     
-                    <form action="{{ route('exercises.store') }}" method="POST">
-                        @csrf <div class="mb-3">
+                    <form id="exerciseForm" action="{{ route('exercises.store') }}" method="POST">
+                        @csrf 
+                        <div class="mb-3">
                             <label class="form-label">Title</label>
                             <input type="text" name="title" class="form-control" placeholder="e.g. Bench Press" required>
                         </div>
@@ -43,7 +44,7 @@
                         </div>
 
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('exercises.index') }}" class="btn btn-secondary">Cancel</a>
+                            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancel</a>
                             <button type="submit" class="btn btn-primary">Save Exercise</button>
                         </div>
 
@@ -54,6 +55,41 @@
         </div>
     </div>
 </div>
+
+<script> //API tht validate bad words in the title
+    document.getElementById('exerciseForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // останавливаем отправку
+        
+        let titleInput = document.querySelector('input[name="title"]');
+        let titleValue = titleInput.value;
+        let submitBtn = this.querySelector('button[type="submit"]');
+        let originalBtnText = submitBtn.innerText;
+
+        // блок кнопки
+        submitBtn.innerText = "Validating...";
+        submitBtn.disabled = true;
+
+        //отправляем запрос к API
+        fetch('https://www.purgomalum.com/service/json?text=' + encodeURIComponent(titleValue))
+            .then(response => response.json())
+            .then(data => {
+                // если API нашел плохие слова, он заменит их на звездочки
+                if (data.result.includes('*')) {
+                    alert("Validation Error: Please use appropriate language in the title.");
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                } else {
+                    // если все ок то отправляем форму
+                    event.target.submit();
+                }
+            })
+            .catch(error => {
+                console.error('API Error:', error);
+                // В случае ошибки API все равно отправляем форму, чтобы не блокировать работу
+                event.target.submit(); 
+            });
+    });
+</script>
 
 </body>
 </html>

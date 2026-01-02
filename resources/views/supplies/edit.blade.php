@@ -35,8 +35,11 @@
                     <label>Description</label>
                     <textarea name="description" class="form-control" rows="3" required>{{ $supply->description }}</textarea>
                 </div>
-                <button type="submit" class="btn btn-success">Update Product</button>
-                <a href="{{ route('supplies.index') }}" class="btn btn-secondary">Cancel</a>
+
+                <div class="d-flex justify-content-between">
+                    <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-success">Update Product</button>
+                </div>
             </form>
         </div>
     </div>

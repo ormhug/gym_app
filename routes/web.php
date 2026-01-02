@@ -31,3 +31,4 @@ Route::post('/guest/login', [GuestController::class, 'authenticate'])->name('gue
 
 Route::get('/guest/toggle-exercise/{id}', [GuestController::class, 'toggleExercise'])->name('guest.toggle.exercise');
 Route::get('/guest/toggle-supply/{id}', [GuestController::class, 'toggleSupply'])->name('guest.toggle.supply');
+Route::get('/my-plan', [GuestController::class, 'showPlan'])->name('guest.plan');

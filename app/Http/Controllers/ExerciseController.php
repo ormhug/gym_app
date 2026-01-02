@@ -44,7 +44,7 @@ class ExerciseController extends Controller
         Exercise::create($request->all());
 
         // Возвращаемся на главную таблицу
-        return redirect()->route('exercises.index');
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -84,7 +84,7 @@ class ExerciseController extends Controller
         // Обновляем данные
         $exercise->update($request->all());
 
-        return redirect()->route('exercises.index');
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -94,6 +94,6 @@ class ExerciseController extends Controller
     {
         $exercise = Exercise::findOrFail($id);
         $exercise->delete();
-        return redirect()->route('exercises.index');
+        return redirect()->route('dashboard');
     }
 }

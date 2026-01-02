@@ -28,7 +28,7 @@ class SupplyController extends Controller
 
         Supply::create($request->all());
 
-        return redirect()->route('supplies.index');
+        return redirect()->route('dashboard');
     }
 
     public function edit($id)
@@ -48,7 +48,7 @@ class SupplyController extends Controller
         $supply = Supply::findOrFail($id);
         $supply->update($request->all());
 
-        return redirect()->route('supplies.index');
+        return redirect()->route('dashboard');
     }
 
     public function destroy($id)
@@ -56,6 +56,6 @@ class SupplyController extends Controller
         $supply = Supply::findOrFail($id);
         $supply->delete();
 
-        return redirect()->route('supplies.index');
+        return redirect()->route('dashboard');
     }
 }

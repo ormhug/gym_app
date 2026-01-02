@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('exercises.index') }}" class="btn btn-secondary">Cancel</a>
+                            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancel</a>
                             <button type="submit" class="btn btn-success">Update Exercise</button>
                         </div>
 

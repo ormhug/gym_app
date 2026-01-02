@@ -96,4 +96,18 @@ class GuestController extends Controller
 
         return redirect()->back();
     }
+
+
+    //для показа страницы плана гостя
+    public function showPlan()
+    {
+        $guest = $this->getCurrentGuest();
+
+        //если гость не вошел, отправляем логиниться
+        if (!$guest) {
+            return redirect()->route('guest.login')->with('error', 'Please login to view your plan.');
+        }
+
+        return view('guest.plan', ['currentGuest' => $guest]);
+    }
 }
