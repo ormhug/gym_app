@@ -44,7 +44,8 @@
     </div>
 </div>
 
-<script>
+
+<script> //API tht validate bad words in the title
     document.getElementById('supplyForm').addEventListener('submit', function(event) {
         event.preventDefault(); 
         
