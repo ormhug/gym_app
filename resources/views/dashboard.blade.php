@@ -5,6 +5,7 @@
     <title>Gym Helper - Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .navbar-brand { font-weight: bold; letter-spacing: 1px; }
         /* Ссылка сортировки занимает всю ячейку заголовка */
@@ -28,13 +29,13 @@
     <div class="d-flex align-items-center">
         @if(Cookie::get('guest_session'))
             <a href="{{ route('guest.plan') }}" class="btn btn-outline-light me-3 fw-bold">
-                📋 My Plan
+                <i class="fa-solid fa-list"></i> My Plan
             </a>
         @endif
         
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
-                👤 Guest User 
+                <i class="fa-solid fa-user"></i> Guest User 
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 @if(Cookie::get('guest_session'))
@@ -105,12 +106,18 @@
                                     @endif
                                 </td>
                                 <td class="text-end">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#viewExercise{{ $ex->exercise_id }}">👁️</button>
-                                    <a href="{{ route('exercises.edit', $ex->exercise_id) }}" class="btn btn-sm btn-outline-primary">✏️</a>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#viewExercise{{ $ex->exercise_id }}">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    <a href="{{ route('exercises.edit', $ex->exercise_id) }}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
                                     
                                     <form action="{{ route('exercises.destroy', $ex->exercise_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete?');">
                                         @csrf @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger">🗑️</button>
+                                        <button class="btn btn-sm btn-outline-danger">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
@@ -172,7 +179,7 @@
                             <tr>
                                 <td class="fw-bold">{{ $sup->title }}</td>
                                 <td><span class="badge bg-secondary">{{ $sup->category }}</span></td>
-                                <td>@if($sup->source) <a href="{{ $sup->source }}" target="_blank">Link 🔗</a> @else - @endif</td>
+                                <td>@if($sup->source) <a href="{{ $sup->source }}" target="_blank">Link </a> @else - @endif</td>
                                 <td>
                                     @if($currentGuest)
                                         @if($currentGuest->supplies->contains($sup->supply_id))
@@ -185,11 +192,17 @@
                                     @endif
                                 </td>
                                 <td class="text-end">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#viewSupply{{ $sup->supply_id }}">👁️</button>
-                                    <a href="{{ route('supplies.edit', $sup->supply_id) }}" class="btn btn-sm btn-outline-primary">✏️</a>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#viewSupply{{ $sup->supply_id }}">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    <a href="{{ route('supplies.edit', $sup->supply_id) }}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
                                     <form action="{{ route('supplies.destroy', $sup->supply_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete?');">
                                         @csrf @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger">🗑️</button>
+                                        <button class="btn btn-sm btn-outline-danger">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
