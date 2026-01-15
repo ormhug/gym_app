@@ -20,7 +20,7 @@ class GuestController extends Controller
         // Создаем гостя в базе
         Guest::create([
             'session_token' => $token,
-            'username' => 'New Athlete ' . rand(100, 999), // Временное имя
+            //'username' => 'New Athlete ' . rand(100, 999), // Временное имя
             'last_activity_at' => now(),
         ]);
 
